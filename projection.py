@@ -87,67 +87,70 @@ Vx = np.array(Vx)
 Vy = np.array(Vy)
 Vz = np.array(Vz)
 
+print(Vx.shape, ref_x.shape, wo.shape)
+print("Vx, ref_x, world_origin")
+print(Vx, ref_x, wo)
 
-ax,resid,rank,s = np.linalg.lstsq( (Vx-ref_x).T , (ref_x - wo).T )
-ax = ax[0][0]/length_x
+# ax,resid,rank,s = np.linalg.lstsq( (Vx-ref_x).T , (ref_x - wo).T )
+# ax = ax[0][0]/length_x
 
-ay,resid,rank,s = np.linalg.lstsq( (Vy-ref_y).T , (ref_y - wo).T )
-ay = ay[0][0]/length_y
+# ay,resid,rank,s = np.linalg.lstsq( (Vy-ref_y).T , (ref_y - wo).T )
+# ay = ay[0][0]/length_y
 
-az,resid,rank,s = np.linalg.lstsq( (Vz-ref_z).T , (ref_z - wo).T )
-az = az[0][0]/length_y
+# az,resid,rank,s = np.linalg.lstsq( (Vz-ref_z).T , (ref_z - wo).T )
+# az = az[0][0]/length_y
 
-px = ax*Vx
-py = ay*Vy
-pz = az*Vz
+# px = ax*Vx
+# py = ay*Vy
+# pz = az*Vz
 
-P = np.empty([3,4])
-P[:,0] = px
-P[:,1] = py
-P[:,2] = pz
-P[:,3] = wo
+# P = np.empty([3,4])
+# P[:,0] = px
+# P[:,1] = py
+# P[:,2] = pz
+# P[:,3] = wo
 
-Hxy = np.zeros((3,3))
-Hyz = np.zeros((3,3))
-Hzx = np.zeros((3,3))
+# Hxy = np.zeros((3,3))
+# Hyz = np.zeros((3,3))
+# Hzx = np.zeros((3,3))
 
-Hxy[:,0] = px
-Hxy[:,1] = py
-Hxy[:,2] = wo
+# Hxy[:,0] = px
+# Hxy[:,1] = py
+# Hxy[:,2] = wo
 
-Hyz[:,0] = py
-Hyz[:,1] = pz
-Hyz[:,2] = wo
+# Hyz[:,0] = py
+# Hyz[:,1] = pz
+# Hyz[:,2] = wo
 
-Hzx[:,0] = px
-Hzx[:,1] = pz
-Hzx[:,2] = wo
-
-
-Hxy[0,2] = Hxy[0,2] 
-Hxy[1,2] = Hxy[1,2]
-
-Hyz[0,2] = Hyz[0,2] + 100
-Hyz[1,2] = Hyz[1,2] + 100 
-
-Hzx[0,2] = Hzx[0,2] - 50
-Hzx[1,2] = Hzx[1,2] + 50
+# Hzx[:,0] = px
+# Hzx[:,1] = pz
+# Hzx[:,2] = wo
 
 
+# Hxy[0,2] = Hxy[0,2] 
+# Hxy[1,2] = Hxy[1,2]
 
-r,c,temp = img.shape
-Txy = cv2.warpPerspective(img,Hxy,(r,c),flags=cv2.WARP_INVERSE_MAP)
-Tyz = cv2.warpPerspective(img,Hyz,(r,c),flags=cv2.WARP_INVERSE_MAP)
-Tzx = cv2.warpPerspective(img,Hzx,(r,c),flags=cv2.WARP_INVERSE_MAP)
+# Hyz[0,2] = Hyz[0,2] + 100
+# Hyz[1,2] = Hyz[1,2] + 100 
 
-cv2.imshow("Txy",Txy)
-cv2.imshow("Tyz",Tyz)
-cv2.imshow("Tzx",Tzx)
+# Hzx[0,2] = Hzx[0,2] - 50
+# Hzx[1,2] = Hzx[1,2] + 50
 
-cv2.waitKey(0)
-cv2.imwrite("XY.jpg",Txy)
-cv2.imwrite("YZ.jpg",Tyz)
-cv2.imwrite("ZX.jpg",Tzx)
-print ("Saved")
 
-cv2.destroyAllWindows()
+
+# r,c,temp = img.shape
+# Txy = cv2.warpPerspective(img,Hxy,(r,c),flags=cv2.WARP_INVERSE_MAP)
+# Tyz = cv2.warpPerspective(img,Hyz,(r,c),flags=cv2.WARP_INVERSE_MAP)
+# Tzx = cv2.warpPerspective(img,Hzx,(r,c),flags=cv2.WARP_INVERSE_MAP)
+
+# cv2.imshow("Txy",Txy)
+# cv2.imshow("Tyz",Tyz)
+# cv2.imshow("Tzx",Tzx)
+
+# cv2.waitKey(0)
+# cv2.imwrite("XY.jpg",Txy)
+# cv2.imwrite("YZ.jpg",Tyz)
+# cv2.imwrite("ZX.jpg",Tzx)
+# print ("Saved")
+
+# cv2.destroyAllWindows()
